@@ -51,9 +51,10 @@ function Search() {
         setSongId(id);
     };
 
+    
     return (
         <>
-            <div className="flex flex-col items-center p-4 bg-black">
+            <main className="bg-black min-h-screen flex flex-col items-center p-4">
                 <input
                     type="text"
                     placeholder="Search a song"
@@ -61,42 +62,47 @@ function Search() {
                     onChange={(e) => setSearch(e.target.value)}
                     className="w-full max-w-md p-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                <ul className="w-full max-w-4xl flex flex-wrap justify-center gap-4">
-                    {searchLoading && <p className="text-center text-blue-500">Loading...</p>}
-                    {searchError && <p className="text-center text-red-500">{searchError.message}</p>}
+                {searchLoading && <p className="text-center text-blue-500">Loading...</p>}
+                {searchError && <p className="text-center text-red-500">{searchError.message}</p>}
+                <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8 w-full max-w-7xl">
                     {searchData &&
                         searchData.results.map((song) => {
                             const isThisSongPlaying = isPlaying && songId === song.id;
                             return (
-                                <li key={song.id} className="flex flex-col items-center p-4 bg-gray-800 hover:bg-gray-700 rounded-lg shadow-md w-64 ">
+                                <li
+                                    key={song.id}
+                                    className="flex flex-col items-center p-4 bg-gray-800 hover:bg-gray-700 rounded-3xl shadow-lg transform transition-transform hover:scale-105 mb-8"
+                                >
                                     <img
                                         src={song.image}
                                         alt={song.title}
-                                        className="w-48 h-48 mb-4 rounded-lg cursor-pointer"
+                                        className="w-full h-auto mb-4 rounded-2xl cursor-pointer object-cover"
                                         onClick={() => navigate(`/song/${song.id}`)}
                                     />
                                     <div className="flex flex-col items-center w-full">
                                         <div className="flex items-center justify-between w-full mb-2">
-                                            <p className="text-lg font-bold text-white">{song.title.slice(0 , 20)}</p>
+                                            <p className="text-lg font-semibold text-white truncate">
+                                                {song.title.slice(0, 20)}
+                                            </p>
                                             <button
-                                                className="w-16 h-16 flex items-center justify-center bg-gradient-to-r from-purple-500 to-blue-500 rounded-full shadow-lg hover:bg-gray-900 transition duration-300"
+                                                className="w-12 h-12 flex items-center justify-center bg-gradient-to-r from-purple-500 to-blue-500 rounded-full shadow-lg"
                                                 onClick={() => handlePausePlay(song.id)}
                                             >
                                                 {isThisSongPlaying ? (
-                                                    <img src={reactSvg2} alt="Pause" className="w-10 h-10" />
+                                                    <img src={reactSvg2} alt="Pause" className="w-6 h-6" />
                                                 ) : (
-                                                    <img src={reactSvg} alt="Play" className="w-10 h-10" />
+                                                    <img src={reactSvg} alt="Play" className="w-6 h-6" />
                                                 )}
                                             </button>
                                         </div>
-                                        <p className=" text-gray-400">{song.more_info.singers}</p>
+                                        <p className="text-gray-400">{song.more_info.singers}</p>
                                     </div>
                                 </li>
                             );
                         })}
                 </ul>
                 <audio ref={audioRef} />
-            </div>
+            </main>
         </>
     );
 }
