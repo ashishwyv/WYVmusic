@@ -15,7 +15,7 @@ function Header() {
   return (
     <header className="bg-gradient-to-b from-gray-300 to-gray-500 text-black fixed w-full top-0 z-50">
       <div className="container mx-auto flex justify-between items-center p-7">
-        <div className="text-4xl font-extrabold">WYVM</div>
+        <div className="text-4xl font-extrabold">WYVm</div>
         <nav className="flex space-x-9">
           <Link to="/" className="transition-colors duration-300 hover:text-gray-200 text-xl">
             Home
