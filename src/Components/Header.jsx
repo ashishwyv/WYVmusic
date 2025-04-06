@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../LanguageContext';
+import { NavLink } from 'react-router-dom';
 
 function Header() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -27,12 +28,24 @@ function Header() {
 
         {/* Navigation links - hidden on mobile, visible on larger screens */}
         <nav className="hidden md:flex space-x-6 items-center">
-          <Link to="/" className="transition-colors duration-300 hover:text-gray-700 text-xl">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `text-xl transition-colors duration-300 hover:text-gray-700 ${isActive ? 'text-blue-500  border-blue-500' : ''
+              }`
+            }
+          >
             Home
-          </Link>
-          <Link to="/top-charts" className="transition-colors duration-300 hover:text-gray-700 text-xl">
+          </NavLink>
+          <NavLink
+            to="/top-charts"
+            className={({ isActive }) =>
+              `text-xl transition-colors duration-300 hover:text-gray-700 ${isActive ? 'text-blue-500  border-blue-500 ' : ''
+              }`
+            }
+          >
             Top Charts
-          </Link>
+          </NavLink>
           <div className="relative">
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -81,9 +94,15 @@ function Header() {
               </div>
             )}
           </div>
-          <Link to="/search" className="transition-colors duration-300 hover:text-gray-700 text-xl">
+          <NavLink
+            to="/search"
+            className={({ isActive }) =>
+              `text-xl transition-colors duration-300 hover:text-gray-700 ${isActive ? 'text-blue-500  border-blue-500 ' : ''
+              }`
+            }
+          >
             Search
-          </Link>
+          </NavLink>
         </nav>
       </div>
 
@@ -153,13 +172,15 @@ function Header() {
                 </div>
               )}
             </div>
-            <Link
+            <NavLink
               to="/search"
-              className="transition-colors duration-300 hover:bg-gray-200 rounded-md px-4 py-2 text-black"
-              onClick={() => setMenuOpen(false)}
+              className={({ isActive }) =>
+                `text-xl transition-colors duration-300 hover:text-gray-700 ${isActive ? 'text-blue-500 border-b-2 border-blue-500 pb-1' : ''
+                }`
+              }
             >
               Search
-            </Link>
+            </NavLink>
           </nav>
         </div>
       )}
